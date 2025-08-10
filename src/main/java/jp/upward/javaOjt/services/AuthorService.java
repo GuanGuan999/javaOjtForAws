@@ -2,10 +2,14 @@ package jp.upward.javaOjt.services;
 
 import java.util.List;
 import java.util.Optional;
+
+import jakarta.persistence.criteria.CriteriaBuilder;
+import jp.upward.javaOjt.beans.dtos.AuthorDTO;
 import jp.upward.javaOjt.beans.dtos.AuthorWithBookDTO;
 import jp.upward.javaOjt.beans.entities.Author;
 import jp.upward.javaOjt.beans.entities.AuthorPK;
 import jp.upward.javaOjt.beans.responses.author.GetAuthorResponse;
+import jp.upward.javaOjt.beans.responses.author.GetAuthorsResponse;
 import jp.upward.javaOjt.repositories.AuthorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -56,5 +60,33 @@ public class AuthorService {
     }
     return response;
   }
-  
+
+  /**
+   * Fetches an author by his ID.
+   *
+   * @return GetAuthorResponse containing author details and optionally their books
+   */
+  public GetAuthorsResponse getAllAuthor() {
+    GetAuthorsResponse response;
+    List<AuthorDTO> authorList = authorRepository.getAllAuthor();
+
+      if (authorList.isEmpty()) {
+        return GetAuthorsResponse.notFoundResponse();
+      }
+      response = new GetAuthorsResponse();
+      response.setExists(true);
+
+    response.setAuthors(authorList);
+
+    return response;
+  }
+
+  public Author createAuthor(Author authorRequest) {
+    Author authorResponse = authorRepository.save(authorRequest);
+    return authorResponse;
+  }
+
+  public void deleteAuthor(AuthorPK authorRequest) {
+    authorRepository.deleteById(authorRequest);
+  }
 }

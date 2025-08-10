@@ -3,6 +3,8 @@ package jp.upward.javaOjt.beans.responses.author;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.List;
+
+import jp.upward.javaOjt.beans.dtos.AuthorDTO;
 import jp.upward.javaOjt.beans.entities.Author;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,4 +44,6 @@ public class GetAuthorResponse {
     @JsonProperty("publishedAt") String publishedAt) {
 
   }
+
+
 }

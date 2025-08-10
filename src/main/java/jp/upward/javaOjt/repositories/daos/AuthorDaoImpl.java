@@ -3,6 +3,8 @@ package jp.upward.javaOjt.repositories.daos;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.util.List;
+
+import jp.upward.javaOjt.beans.dtos.AuthorDTO;
 import jp.upward.javaOjt.beans.dtos.AuthorWithBookDTO;
 import jp.upward.javaOjt.beans.entities.QAuthor;
 import jp.upward.javaOjt.beans.entities.QBook;
@@ -27,5 +29,16 @@ public class AuthorDaoImpl implements AuthorDao {
       .on(QAuthor.author.id.eq(QBook.book.authorId))
       .where(QAuthor.author.id.eq(id))
       .fetch();
+  }
+
+  public List<AuthorDTO> getAllAuthor() {
+    return jpaQueryFactory.select(
+                    Projections.constructor(
+                            AuthorDTO.class,
+                            QAuthor.author
+                    )
+            )
+            .from(QAuthor.author)
+            .fetch();
   }
 }
