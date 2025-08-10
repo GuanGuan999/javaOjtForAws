@@ -27,9 +27,9 @@ jobs:
 
     - name: Build Docker image
       run: |
-        docker build -t javaOjtForAws:latest .
-        docker tag javaOjtForAws:latest ${{ steps.login-ecr.outputs.registry }}/javaOjtForAws:latest
+        docker build -t javaojtforaws:latest .
+        docker tag javaojtforaws:latest ${{ steps.login-ecr.outputs.registry }}/javaojtforaws:latest
 
     - name: Push Docker image to ECR
       run: |
-        docker push ${{ steps.login-ecr.outputs.registry }}/javaOjtForAws:latest
+        docker push ${{ steps.login-ecr.outputs.registry }}/javaojtforaws:latest
